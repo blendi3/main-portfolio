@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"; // This tells Next.js that this component is client-side
 
 import React, { useRef, useState, ChangeEvent, FormEvent } from "react";

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import { projects } from "@/data";
 import React from "react";
 import { PinContainer } from "./ui/3d-pin";
