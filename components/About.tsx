@@ -39,7 +39,7 @@ const About = () => {
               className="w-full sm:h-[276px] h-fit object-contain"
             />
             <div>
-              <p className="grid-headtext">Hi, I'm Blendi</p>
+              <p className="grid-headtext">Hi, I&apos;m Blendi</p>
               <p className="grid-subtext">
                 A dedicated software developer with a passion for crafting
                 innovative web solutions, blending creativity with performance
@@ -130,8 +130,8 @@ const About = () => {
             <div>
               <p className="grid-headtext">Fueled by a Passion for Coding</p>
               <p className="grid-subtext">
-                Coding isn't just my career, it's my passion. I thrive on
-                solving challenges and creating innovative solutions through
+                Coding isn&apos;t just my career, it&apos;s my passion. I thrive
+                on solving challenges and creating innovative solutions through
                 code.
               </p>
             </div>
