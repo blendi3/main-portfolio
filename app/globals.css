@@ -2,20 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .c-space {
+    @apply sm:px-10 px-5;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  .grid-container {
+    @apply w-full h-full border border-[#1f2a5c] rounded-lg sm:p-7 p-4 flex flex-col gap-5 bg-[#10152e];
+  }
+
+  .grid-headtext {
+    @apply text-xl font-semibold mb-2 text-white;
+  }
+
+  .grid-subtext {
+    @apply text-[#afb0b6] text-base;
+  }
+
+  .copy-container {
+    @apply cursor-pointer flex justify-center items-center gap-2;
+  }
+
+  .text-gray_gradient {
+    @apply bg-gradient-to-r from-[#BEC1CF] from-60% via-[#D5D8EA] via-60% to-[#D5D8EA] to-100% bg-clip-text text-transparent;
+  }
+
+  .heading {
+    @apply font-bold text-4xl md:text-5xl text-center;
+  }
+
+  .contact-container {
+    @apply max-w-xl relative z-10 sm:px-10 px-5 mt-12;
+  }
+
+  .field-label {
+    @apply text-lg text-white dark:text-gray-400; /* Lighter label color for dark mode */
+  }
+
+  .field-input {
+    @apply w-full bg-gray-800 dark:bg-gray-900 px-5 py-2 min-h-14 rounded-lg placeholder:text-gray-400 text-lg text-white dark:text-gray-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+  }
+
+  .field-btn {
+    @apply bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-600 px-5 py-2 min-h-12 rounded-lg shadow-lg flex justify-center items-center text-lg text-white gap-3 hover:bg-gradient-to-r hover:from-teal-600 hover:via-blue-600 hover:to-indigo-600;
+  }
+
+  .field-btn_arrow {
+    @apply w-2.5 h-2.5 object-contain invert brightness-0;
+  }
+
+  /*  footer */
+  .social-icon {
+    @apply w-12 h-12 rounded-full flex justify-center items-center bg-gray-700 dark:bg-gray-800 border border-gray-600 dark:border-gray-500 hover:bg-teal-600 hover:border-teal-500;
+  }
 }
