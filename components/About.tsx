@@ -108,11 +108,13 @@ const About = () => {
                 Based in Kosovo, I am fully equipped to handle remote work and
                 collaborate effectively with teams worldwide.
               </p>
-              <MagicButton
-                title="Contact Me"
-                icon={<FaLocationArrow />}
-                position="right"
-              />
+              <a href="#contact">
+                <MagicButton
+                  title="Contact Me"
+                  icon={<FaLocationArrow />}
+                  position="right"
+                />
+              </a>
             </div>
           </div>
         </div>
