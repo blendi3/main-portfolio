@@ -41,7 +41,7 @@ const RecentProjects = () => {
                 {title}
               </h1>
 
-              <p className="lg:text-xl lg:font-normal font-light test-sm line-clamp-2">
+              <p className="lg:text-xl lg:font-normal font-light test-sm line-clamp-3">
                 {des}
               </p>
 

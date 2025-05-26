@@ -9,7 +9,7 @@ export const projects = [
   {
     id: 1,
     title: "PatientPulse - Patient Management App",
-    des: "Explore the wonders of our solar system with this captivating 3D simulation of the planets using Three.js.",
+    des: "A patient management system where users can book appointments and admins manage doctors and patient data securely.",
     img: "./assets/project1.jpg",
     iconLists: [
       "./assets/nextjs.svg",
@@ -23,7 +23,7 @@ export const projects = [
   {
     id: 2,
     title: "Payzen - Banking App",
-    des: "Simplify your video conferencing experience with Yoom. Seamlessly connect with colleagues and friends.",
+    des: "A sleek banking app for managing accounts, transactions, and sending money with a clean and user-friendly interface.",
     img: "./assets/project2.jpg",
     iconLists: [
       "./assets/nextjs.svg",
@@ -76,7 +76,7 @@ export const workExperiences = [
     id: 3,
     name: "Freelance",
     pos: "Front-end Developer",
-    duration: "Jun 2022 - Mar 2023",
+    duration: "Jun 2022 - Present",
     title:
       "During my freelance work, I built and maintained web applications for various clients, leveraging technologies like HTML, CSS, JavaScript, and React to deliver high-quality solutions.",
   },
