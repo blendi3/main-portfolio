@@ -1,12 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client"; // This tells Next.js that this component is client-side
 
-import React, { useRef, useState, ChangeEvent, FormEvent } from "react";
-import emailjs from "@emailjs/browser";
+import React, {
+  useRef,
+  useState,
+  ChangeEvent,
+  FormEvent,
+  FocusEvent,
+} from "react";
+// import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MagicButton from "./MagicButton";
 import { FaLocationArrow } from "react-icons/fa";
+import {
+  contactFormSchema,
+  ValidationError,
+} from "@/lib/validation/contactSchema";
+// import * as yup from "yup";
 
 interface FormData {
   name: string;
@@ -23,39 +34,66 @@ export const ContactForm = () => {
     email: "",
     message: "",
   });
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = ({
     target: { name, value },
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [name]: value });
+    // Optional: clear error on input change
+    setFormErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  // Validate single field on blur
+  const handleBlur = async (
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    try {
+      // Use Yup's .reach to get field schema
+      await contactFormSchema.validateAt(name, { ...form, [name]: value });
+      // Clear error for this field if valid
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        setFormErrors((prev) => ({ ...prev, [name]: err.message }));
+      }
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    try {
+      await contactFormSchema.validate(form, { abortEarly: false });
+      setFormErrors({});
+    } catch (validationError) {
+      if (validationError instanceof ValidationError) {
+        const errors: { [key: string]: string } = {};
+        validationError.inner.forEach((err) => {
+          if (err.path && err.message) {
+            errors[err.path] = err.message;
+          }
+        });
+        setFormErrors(errors);
+        return; // stop submission
+      }
+    }
+
     setLoading(true);
 
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        {
-          from_name: form.name,
-          to_name: "Blendi",
-          email: form.email,
-          to_email: "blendiivanja2@gmail.com",
-          message: form.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
-      );
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Failed to send email");
 
       setLoading(false);
       toast.success("Message successfully sent!");
-      setForm({
-        name: "",
-        email: "",
-        message: "",
-      });
+      setForm({ name: "", email: "", message: "" });
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -83,6 +121,7 @@ export const ContactForm = () => {
             ref={formRef}
             onSubmit={handleSubmit}
             className="w-full max-w-xl space-y-6"
+            noValidate
           >
             <div>
               <label htmlFor="name" className="block text-lg text-white mb-2">
@@ -94,10 +133,13 @@ export const ContactForm = () => {
                 id="name"
                 value={form.name}
                 onChange={handleChange}
-                required
+                onBlur={handleBlur}
                 placeholder="Your name"
                 className="w-full p-4 bg-[#1a1f38] text-white border border-[#3c4451] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#667eea] transition duration-300"
               />
+              {formErrors.name && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
+              )}
             </div>
             <div>
               <label htmlFor="email" className="block text-lg text-white mb-2">
@@ -109,10 +151,13 @@ export const ContactForm = () => {
                 id="email"
                 value={form.email}
                 onChange={handleChange}
-                required
+                onBlur={handleBlur}
                 placeholder="Your email"
                 className="w-full p-4 bg-[#1a1f38] text-white border border-[#3c4451] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#667eea] transition duration-300"
               />
+              {formErrors.email && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+              )}
             </div>
             <div>
               <label
@@ -126,17 +171,23 @@ export const ContactForm = () => {
                 id="message"
                 value={form.message}
                 onChange={handleChange}
-                required
+                onBlur={handleBlur}
                 rows={6}
                 placeholder="Your message"
                 className="w-full p-4 bg-[#1a1f38] text-white border border-[#3c4451] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#667eea] transition duration-300"
               />
+              {formErrors.message && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formErrors.message}
+                </p>
+              )}
             </div>
 
             <MagicButton
               title={loading ? "Sending..." : "Send Message"}
               icon={<FaLocationArrow />}
               position="right"
+              disabled={loading}
             />
           </form>
         </div>

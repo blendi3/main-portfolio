@@ -7,6 +7,7 @@ interface MagicButtonProps {
   position: string;
   handleClick?: () => void;
   otherClasses?: string;
+  disabled?: boolean;
 }
 
 const MagicButton: React.FC<MagicButtonProps> = ({
@@ -15,9 +16,11 @@ const MagicButton: React.FC<MagicButtonProps> = ({
   position,
   handleClick,
   otherClasses,
+  disabled,
 }) => {
   return (
     <button
+      disabled={disabled}
       onClick={handleClick}
       className={`relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none ${otherClasses} w-full my-6`}
     >
