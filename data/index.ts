@@ -60,7 +60,7 @@ export const workExperiences = [
     id: 1,
     name: "Pabau Clinic Software",
     pos: "Software Developer",
-    duration: "Sep 2023 - Apr 2024",
+    duration: "Oct 2023 - May 2024",
     title:
       "At Pabau Clinic Software, I worked as a Software Developer, focusing on front-end development with React and TypeScript. I contributed to building user-friendly interfaces and improving the user experience for clinic management software.",
   },
@@ -68,7 +68,7 @@ export const workExperiences = [
     id: 2,
     name: "OCA Solutions",
     pos: "Front-end Developer",
-    duration: "Mar 2023 - Sep 2023",
+    duration: "Jan 2023 - Oct 2023",
     title:
       "As a Front-end Developer at OCA Solutions, I implemented responsive web designs using React, enhancing the usability and performance of client applications.",
   },
@@ -76,7 +76,7 @@ export const workExperiences = [
     id: 3,
     name: "Freelance",
     pos: "Front-end Developer",
-    duration: "Jun 2022 - Present",
+    duration: "Jun 2024 - Present",
     title:
       "During my freelance work, I built and maintained web applications for various clients, leveraging technologies like HTML, CSS, JavaScript, and React to deliver high-quality solutions.",
   },
